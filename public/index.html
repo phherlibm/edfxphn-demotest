@@ -7,6 +7,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="stylesheets/style.css">
+    <script>
+      var locationStatus = "";
+      var locationLatitude;
+      var locationLongitude;
+
+      function getLocation() {
+        if (navigator.geolocation) {
+          console.log("Interrogation de la géolocation.");
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+          console.log("La géolocalistion n'est pas supportée.");
+          locationStatus = "La géolocalistion n'est pas supportée par ce navigateur.";
+        }
+      }
+
+      function showPosition(position) {
+        console.log("Données de localisation : " + position.coords.latitude + ", " + position.coords.longitude);
+        locationLatitude = position.coords.latitude;
+        locationLongitude = position.coords.longitude;
+      }
+    </script>
   </head>
 
   <body>
@@ -18,6 +39,13 @@
         <td>
           <h1 id="message">Bonjour EdifiXio</h1>
           <p class='description'></p>Ceci est la première application développée avec <span class = "blue">IBM Bluemix</span>.
+          <p>
+            <script>
+              console.log("Demande la position");
+              getLocation();
+            </script>
+            <a href="/meteo" onclick="location.href=this.href + '?latitude=' + locationLatitude + '&amp;longitude=' + locationLongitude;return false;">Infos météo</a>
+          </p>
         </td>
       </tr>
     </table>
